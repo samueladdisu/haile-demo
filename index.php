@@ -156,7 +156,7 @@ if (isset($_GET['ref'])) {
     <script>
       sessionStorage.clear()
     </script>
-    <title>Kuriftu - Reservation</title>
+    <title>Haile Resorts</title>
 </head>
 
 <body>
@@ -164,7 +164,7 @@ if (isset($_GET['ref'])) {
         <nav class="nav-center">
 
             <div class="logo">
-                <img src="./img/black_logo.svg" alt="">
+                <img src="./img/haile_logo.svg" alt="">
             </div>
             <div class="line">
                 <div class="container1">
@@ -193,11 +193,11 @@ if (isset($_GET['ref'])) {
             <div class="wrapper">
 
                 <div class="single-destination">
-                    <img src="./img/awash-cover.webp" alt="">
+                    <img src="./img/haile_suite.jpg" alt="">
                     <div class="desc">
                         <div class="desc-wrapper">
-                            <h4>Kuriftu Resort & Spa Awash Falls</h4>
-                            <p class="location-txt">Awash, Ethiopia </p>
+                            <h4>Haile Resort Hawassa</h4>
+                            <p class="location-txt">Hawassa, Ethiopia </p>
 
                             <div class="sep-line">
                                 <hr class="line3">
@@ -215,11 +215,11 @@ if (isset($_GET['ref'])) {
 
                 </div>
                 <div class="single-destination">
-                    <img src="./img/2.webp" alt="">
+                    <img src="./img/haile_arbaminch.jpg" alt="">
                     <div class="desc">
                         <div class="desc-wrapper">
-                            <h4>Kuriftu Resort & Spa Bishoftu</h4>
-                            <p class="location-txt">Bishoftu, Ethiopia </p>
+                            <h4>Haile Resort Arba Minch</h4>
+                            <p class="location-txt">Arba Minch, Ethiopia </p>
 
                             <div class="sep-line">
                                 <hr class="line3">
@@ -237,11 +237,11 @@ if (isset($_GET['ref'])) {
 
                 </div>
                 <div class="single-destination">
-                    <img src="./img/Glamping.webp" alt="">
+                    <img src="./img/haile_adama.jpg" alt="">
                     <div class="desc">
                         <div class="desc-wrapper">
-                            <h4>Kuriftu Resort & Spa Entoto</h4>
-                            <p class="location-txt">Addis Ababa, Ethiopia </p>
+                        <h4>Haile Resort Adama</h4>
+                            <p class="location-txt">Adama, Ethiopia </p>
 
                             <div class="sep-line">
                                 <hr class="line3">
@@ -260,11 +260,11 @@ if (isset($_GET['ref'])) {
                 </div>
 
                 <div class="single-destination">
-                    <img src="./img/Tana.webp" alt="">
+                    <img src="./img/haile_gondar.jpg" alt="">
                     <div class="desc">
                         <div class="desc-wrapper">
-                            <h4>Kuriftu Resort & Spa Lake Tana</h4>
-                            <p class="location-txt">Bahirdar, Ethiopia </p>
+                            <h4>Haile Resort Gondar</h4>
+                            <p class="location-txt">Gondar, Ethiopia </p>
 
                             <div class="sep-line">
                                 <hr class="line3">
@@ -281,21 +281,59 @@ if (isset($_GET['ref'])) {
                     </div>
 
                 </div>
+
+                <div class="single-destination">
+                    <img src="./img/haile_ziway.jpg" alt="">
+                    <div class="desc">
+                        <div class="desc-wrapper">
+                            <h4>Haile Resort Ziway</h4>
+                            <p class="location-txt">Ziway, Ethiopia </p>
+
+                            <div class="sep-line">
+                                <hr class="line3">
+                            </div>
+                            <div class="details">
+                                <p class="text-detail">From<b class="bigger"> $300</b>
+                                    <br>Per Night<br>Including Taxes & Fees
+                                </p>
+                                </p>
+                                <a href="./reserve.php?location=Tana"> <button class="btn btn-black btn-detail">View Rooms </button></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="single-destination">
+                    <img src="./img/haile_yaya.jpg" alt="">
+                    <div class="desc">
+                        <div class="desc-wrapper">
+                            <h4>Yaya Africa Athletics Village</h4>
+                            <p class="location-txt">Addis Ababa, Ethiopia </p>
+
+                            <div class="sep-line">
+                                <hr class="line3">
+                            </div>
+                            <div class="details">
+                                <p class="text-detail">From<b class="bigger"> $300</b>
+                                    <br>Per Night<br>Including Taxes & Fees
+                                </p>
+                                </p>
+                                <a href="./reserve.php?location=Tana"> <button class="btn btn-black btn-detail">View Rooms </button></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
     </section>
 
 
-    <!-- <section class="Destinations-list">
-        <div class="container" style="display: grid; place-items: center; height: 60vh">
-            <h2>
-                Page Under Construction
-            </h2>
-
-        </div>
-
-    </section> -->
     <footer>
         <div class="container">
             <img src="./img/black_logo.svg" alt="">

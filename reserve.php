@@ -97,7 +97,7 @@ if (isset($_GET['checkout'])) {
         <nav class="nav-center">
 
           <div class="logo">
-            <img src="./img/black_logo.svg" alt="">
+            <img src="./img/HaileLogo.png" alt="">
           </div>
           <div class="line">
             <div class="container1">

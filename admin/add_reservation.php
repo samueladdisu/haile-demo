@@ -437,6 +437,115 @@
                     </div>
                   </div>
 
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Room Status </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="row py-1">
+
+                        <div class="form-group mt-2 col-3">
+                          <input type="date" v-model="filterDate" class="form-control" />
+                        </div>
+
+                        <!------------------------- t-date picker end  ------------------>
+
+                        <?php
+
+                        if ($_SESSION['user_role'] == 'SA' || ($_SESSION['user_location'] == 'Boston' && $_SESSION['user_role'] == 'RA')) {
+
+                        ?>
+                          <div class="form-group mt-2 col-2">
+                            <select name="room_location" class="custom-select" v-model="filterLocation" id="">
+                              <option disabled value="">Resort Location</option>
+                              <?php
+
+                              $query = "SELECT * FROM locations";
+                              $result = mysqli_query($connection, $query);
+                              confirm($result);
+
+                              while ($row = mysqli_fetch_assoc($result)) {
+                                $location_id = $row['location_id'];
+                                $location_name = $row['location_name'];
+
+                                if ($location_name != 'Boston') {
+
+                                  echo "<option value='$location_name'>{$location_name}</option>";
+                                }
+                              }
+                              ?>
+                            </select>
+                          </div>
+                        <?php } else { ?>
+                          <input type="hidden" name="room_location" value="<?php echo $_SESSION['user_location']; ?>">
+
+
+                        <?php  }
+
+
+                        ?>
+
+
+
+                        <div id="bulkContainer" class="col-3 mt-2">
+
+                          <?php
+
+                          if ($_SESSION['user_role'] == 'SA' || ($_SESSION['user_location'] == 'Boston' && $_SESSION['user_role'] == 'RA')) {
+
+                          ?>
+
+                            <button name="booked" @click.prevent="fetchRoomStatus(filterLocation)" class="btn btn-success">Filter</button>
+
+                            <button @click.prevent="fetchRoomStatus('all')" class="btn btn-danger mx-2">Clear Filters</button>
+
+                          <?php } else { ?>
+                            <input type="hidden" name="room_location" value="<?php echo $_SESSION['user_location']; ?>">
+
+                            <button name="booked" @click.prevent="fetchRoomStatus('<?php echo $_SESSION['user_location']; ?>')" class="btn btn-success">Filter</button>
+
+                            <button @click.prevent="fetchRoomStatus('<?php echo $_SESSION['user_location']; ?>')" class="btn btn-danger mx-2">Clear Filters</button>
+                          <?php  } ?>
+
+
+
+
+
+                        </div>
+
+
+
+
+                      </div>
+
+                      <div class="table-responsive">
+                        <table class="table display table-bordered" width="100%" id="roomStatus" cellspacing="0">
+
+
+                          <thead>
+                            <tr>
+                              <th>Id</th>
+                              <th>Type</th>
+                              <th>Room no.</th>
+                              <th>Guest Name</th>
+                              <th>Adults</th>
+                              <th>Kids</th>
+                              <th>teens</th>
+                              <th>Arrival</th>
+                              <th>Departure</th>
+                              <th>Status</th>
+                              <th>Location</th>
+                              <th>Select Room</th> 
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
                 <div class="card shadow mb-4">
@@ -648,6 +757,7 @@
           awash: true,
           loftBtn: true,
           guest: true,
+          filterDate: "<?php echo date('Y-m-d'); ?>",
           spinner: false,
           success: false,
           search_data: [],
@@ -731,6 +841,99 @@
             console.log("respose", res.data);
             this.types = res.data
           })
+
+        },
+        async fetchRoomStatus(flocation = "all") {
+
+          // console.log(flocation);
+          // console.log(this.filterDate)
+          await axios.post('./includes/backEndreservation.php', {
+            action: 'roomStatus',
+            location: flocation,
+            date: this.filterDate
+          }).then(res => {
+            console.log(res.data)
+
+            res.data.forEach(item => {
+              item.status = ""
+
+              if ("2022-10-09" === item.b_checkin) {
+                
+                console.log("Start", start);
+                console.log("bckin", item.b_checkin);
+              }
+
+              if (item.b_checkin === null) {
+                item.status = "Free"
+              } else if (item.b_checkin === this.filterDate) {
+                item.status = "Arrival"
+              } else if (this.filterDate > item.b_checkin && this.filterDate < item.b_checkout) {
+                item.status = "Stay over"
+              } else if (item.b_checkout === this.filterDate) {
+                item.status = "Departure"
+              }
+
+
+            });
+
+
+            this.roomStatusTable(res.data)
+          })
+        },
+        roomStatusTable(row) {
+          $('#roomStatus').DataTable({
+            destroy: true,
+            dom: 'lBfrtip',
+            buttons: [
+              'excel',
+              'print',
+              'csv'
+            ],
+            order: [
+              [0, 'asc']
+            ],
+            data: row,
+            columns: [{
+                data: 'room_id'
+              },
+              {
+                data: 'room_acc'
+              },
+              {
+                data: 'room_number'
+              },
+              {
+                data: 'res_firstname'
+              },
+              {
+                data: 'info_adults'
+              },
+              {
+                data: 'info_kids'
+              },
+              {
+                data: 'info_teens'
+              },
+              {
+                data: 'b_checkin'
+              },
+              {
+                data: 'b_checkout'
+              },
+              {
+                data: 'status',
+              },
+              {
+                data: 'room_location'
+              },
+              {
+                data: 'room_id',
+                render: function(data, type, row) {
+                  return `<input type="button" class="btn btn-primary" value="Select" data-id="${data}" data-row="${row}" id="selectRow">`
+                }
+              }
+            ],
+          });
 
         },
         table(row) {
@@ -827,7 +1030,7 @@
             }
 
             vm.guest = true
-            
+
 
             console.log(vm.res_adults)
           })
@@ -934,23 +1137,6 @@
           }
 
         },
-        // checkLoftTeen() {
-        //   if (this.res_teen == 1) {
-        //     this.loftKid = true
-        //     this.res_kid = 0
-        //   } else {
-        //     this.loftKid = false
-        //   }
-        // },
-        // checkLoftKid() {
-        //   if (this.res_kid == 1) {
-        //     this.loftTeen = true
-        //     this.res_teen = 0
-        //   } else {
-        //     this.loftTeen = false
-        //   }
-
-        // },
         CheckGuest() {
           if (this.res_adults === "1") {
 
@@ -1022,7 +1208,7 @@
                   setTimeout(() => {
                     window.location.href = "./view_all_reservations.php"
                   }, 2000)
-                }else {
+                } else {
 
                 }
 
@@ -1089,6 +1275,17 @@
       created() {
         this.fetchAll()
 
+        <?php
+
+        if ($_SESSION['user_role'] == 'SA' || ($_SESSION['user_location'] == 'Boston' && $_SESSION['user_role'] == 'RA')) {
+        ?>
+          this.fetchRoomStatus()
+
+        <?php } else { ?>
+
+          this.fetchRoomStatus('<?php echo $_SESSION['user_location']; ?>')
+
+        <?php  } ?>
         // Pusher.logToConsole = true;
 
         let fKey = '<?php echo $_ENV['FRONT_KEY'] ?>'

@@ -5,7 +5,7 @@
          <div class="sidebar-brand-icon rotate-n-15">
          </div>
          <div class="sidebar-brand-text py-3">
-             <img width="150" src="../img/Kuriftu_logo.svg" alt="">
+             <img width="150" src="../img/haile_logo.svg" alt="">
 
          </div>
      </a>
