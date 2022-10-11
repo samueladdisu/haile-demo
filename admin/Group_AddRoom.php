@@ -310,7 +310,8 @@
     <script src="https://unpkg.com/vue@3.0.2"></script>
 
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
     <!-- Core plugin JavaScript-->
 
 
